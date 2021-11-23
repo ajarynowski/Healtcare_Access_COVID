@@ -3,8 +3,8 @@ title: "Dostep do sluzby zdrowia a dynamika zakazen"
 author: "AJ"
 date: "23/11/2021"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 Polska przestrzennie: zakazenia, zgony, seroprewalencja a HCA
 
@@ -36,7 +36,7 @@ proc_sero
 
 Dlategi dobrą zmienną pośrednicząca między skumulowaną liczbą zakażeń a wynikami serologicznymi (realizowanymi na wczesnym etapie szczepień populacyjnych) jest dostępność do podażowa służby zdrowia.
 ```{r}
-knitr::include_graphics("sero_diag.png")
+knitr::include_graphics("sero_diag.png", dpi=100)
 ```
 
 model regresji czynnikowej z interakcjami na poziomie powiatów (rzutowanie - zmienna wyjaśniana na liczbę przypadków w drugiej połowie września) 
@@ -73,7 +73,7 @@ proc_zgony
 Dobrą zmienną wyjaśniającą umieralność jest dostępność popytowa do służby zdrowia. Poziom zaszczepienia (6%) czy skumulowana liczba zakaźeń na miekszańca w poprzednich falach (2%), mają istotne znaczenie, ale wciąż dostęp popytowy do służby zdrowia jest najważniejszy (12%).
 
 ```{r}
-knitr::include_graphics("current_deaths.png", dpi=50)
+knitr::include_graphics("current_deaths.png", dpi=200)
 ```
 
 
@@ -127,8 +127,12 @@ afss <- af$"Sum Sq"
 proc_zgony2<-cbind(af,PctExp=afss/sum(afss)*100)
 proc_zgony2
 ```
-Duże znaczenie ma wyraz kwadratow dostępności popytowej do służby zdrowia
+Duże znaczenie ma wyraz kwadratowy dostępności popytowej do służby zdrowia
 
 ```{r}
 
+kor=cor(vacc_zgony[,c(14,15,17:20,23)], use="pairwise.complete.obs")
+pheatmap(kor, display_numbers = T)
+
 ```
+Korealacje Pearsona między głównymi zmienymi analizy.
