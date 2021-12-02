@@ -34,10 +34,24 @@ proc_sero
 
 ```
 
-Dlategi dobrą zmienną pośrednicząca między skumulowaną liczbą zakażeń a wynikami serologicznymi (realizowanymi na wczesnym etapie szczepień populacyjnych) jest dostępność do podażowa służby zdrowia.
+Dlatego dobrą zmienną pośrednicząca między skumulowaną liczbą zakażeń a wynikami serologicznymi (realizowanymi na wczesnym etapie szczepień populacyjnych) jest dostępność do podażowa służby zdrowia.
 ```{r}
 knitr::include_graphics("sero_diag.png", dpi=100)
 ```
+
+
+
+```{r }
+mod_hosp=lm(hosp~ case_3rd_wave+case_3rd_wave*HeathCareAccess_per_w+HeathCareAccess_w*case_3rd_wave+case_3rd_wave*HeathCareAccess_per_w*proc_vac_1dose_w, data=woj_com)
+
+af <- anova(mod_hosp)
+afss <- af$"Sum Sq"
+proc_hosp<-cbind(af,PctExp=afss/sum(afss)*100)
+
+proc_hosp
+
+```
+
 
 model regresji czynnikowej z interakcjami na poziomie powiatów (rzutowanie - zmienna wyjaśniana na liczbę przypadków w drugiej połowie września) 
 
